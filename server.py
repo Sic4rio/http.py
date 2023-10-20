@@ -7,6 +7,16 @@ from termcolor import colored  # Importing termcolor for colored output
 exit_server = False
 
 class CustomRequestHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/':
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b'Hello, this is a GET request.')
+        else:
+            self.send_response(404)
+            self.end_headers()
+            self.wfile.write(b'Not Found.')
+
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
